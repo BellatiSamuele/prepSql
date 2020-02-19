@@ -36,7 +36,6 @@ router.get('/search/:unit', function(req, res, next) {
     sqlRequest.query(`select * from dbo.[cr-unit-attributes] where Unit = '${req.params.unit}'`, (err, result) => {
         // ... error checks
         if (err) console.log(err);
-
         res.send(result);
     });
   });
