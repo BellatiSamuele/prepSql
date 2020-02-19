@@ -55,8 +55,7 @@ router.post('/', function (req, res, next) {
     let sqlRequest = new sql.Request();
     sqlRequest.query(sqlInsert, (error, results) => {
       if (error) throw error;
-      // return res.send({ error: false, data: results, message: 'New user has been created successfully.' });
-      res.render('unit', {unit: result.recordsets[0][0]});   
+      return res.send({ error: false, data: results, message: 'New user has been created successfully.' }); 
     });
   })
 });
