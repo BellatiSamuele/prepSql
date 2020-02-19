@@ -2,9 +2,9 @@ var express = require('express');
 var router = express.Router();
 const sql = require('mssql');
 var cors = require('cors')
-var app = express()
+var app = express();
  
-app.use(cors())
+app.use(cors());
 
 const config = {
   user: 'bellati.samuele',  //Vostro user name
@@ -22,7 +22,8 @@ router.get('/unit', function(req, res, next) {
     let sqlRequest = new sql.Request();  //Oggetto che serve a creare le query
     sqlRequest.query('select * from dbo.[cr-unit-attributes]', (err, result) => {
         if (err) console.log(err); // ... error checks
-        res.send(result);  //Invio il risultato
+        // res.send(result);  //Invio il risultato
+        res.render('list', {result: result.recordsets[0]});
     });
   });
 });
@@ -36,8 +37,8 @@ router.get('/search/:unit', function(req, res, next) {
     sqlRequest.query(`select * from dbo.[cr-unit-attributes] where Unit = '${req.params.unit}'`, (err, result) => {
         // ... error checks
         if (err) console.log(err);
-        res.send(result);
-    });
+        //res.send(result);
+        res.render('unit', {unit: result.recordsets[0][0]});    });
   });
 });
 
@@ -54,7 +55,8 @@ router.post('/', function (req, res, next) {
     let sqlRequest = new sql.Request();
     sqlRequest.query(sqlInsert, (error, results) => {
       if (error) throw error;
-      return res.send({ error: false, data: results, message: 'New user has been created successfully.' });
+      // return res.send({ error: false, data: results, message: 'New user has been created successfully.' });
+      res.render('unit', {unit: result.recordsets[0][0]});   
     });
   })
 });

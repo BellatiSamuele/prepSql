@@ -1,0 +1,7 @@
+extends layout
+block content
+    div 
+    .container
+        each unit in result
+            a(href= `/users/search/${unit.Unit}`) #{unit.Unit} 
+            img(src=`/images/${unit.Unit}.png`, height="450" weight="700")
